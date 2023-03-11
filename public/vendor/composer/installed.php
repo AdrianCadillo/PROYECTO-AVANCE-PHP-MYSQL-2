@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => '__root__',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'windwalker/edge' => array(
+            'pretty_version' => '4.0.0',
+            'version' => '4.0.0.0',
+            'reference' => '2ce5b41c71990c35b34c8830ccb3996499e0e45f',
+            'type' => 'windwalker-package',
+            'install_path' => __DIR__ . '/../windwalker/edge',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'windwalker/utilities' => array(
+            'pretty_version' => '4.0.25',
+            'version' => '4.0.25.0',
+            'reference' => '3972f7b12e97eeaa45e7326e78d3d20d25ada531',
+            'type' => 'windwalker-package',
+            'install_path' => __DIR__ . '/../windwalker/utilities',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);
