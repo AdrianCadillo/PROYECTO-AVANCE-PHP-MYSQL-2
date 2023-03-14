@@ -1,6 +1,10 @@
 <?php 
 
-define("URL_BASE","http://sistema_permiso.test/");
+define("URL_BASE","https://sistema_permiso.com/");
+
+define("RAIZPUBLIC","public.lib.");
+
+define("RAIZVIEW","resources.view.");
 
 define("USERNAME","root");
 
