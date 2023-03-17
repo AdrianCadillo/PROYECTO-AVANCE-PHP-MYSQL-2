@@ -23,4 +23,18 @@ TABLA DE LA BASE DE DATOS
 ==============================*/
 
 public static function Update(string $Tabla,array $datos);
+
+
+/*============================
+METODO PARA BUSQUEDAS DE CUALQUIER TABLA
+POR UN ATRIBUTO
+==============================*/
+
+public static function Search_(string $Table,$atributo,$valor);
+/*============================
+METODO PARA ELIMINAR CUALQUIER REGISTRO DE UNA TABLA
+==============================*/
+
+public static function destroy(string $Tabla,string $atributo,$valor);
+
 }

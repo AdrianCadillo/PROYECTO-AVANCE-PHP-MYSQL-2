@@ -22,11 +22,17 @@ class Role extends CrudRepository
 
   /** Método para modificar */
 
-  public function modify(array $datos){}
+  public function modify(array $datos){
+
+    return self::Update($this->Table,$datos);
+  }
 
   /** Método para eliminar */
 
-  public  function delete($id){}
+  public  function delete($id){
+   
+    return self::destroy($this->Table,$this->Fillable[0],$id);
+  }
 
   /** Método para mostrar datos */
 

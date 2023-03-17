@@ -45,6 +45,15 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{URL_BASE}}module" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Module
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

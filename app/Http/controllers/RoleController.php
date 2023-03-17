@@ -34,10 +34,8 @@ class RoleController extends BaseController
     echo $this->ModelRole->create($datos); 
   }
 
-  public function edit( )
-  {
-    
    
-  }
+
+   
 
 }

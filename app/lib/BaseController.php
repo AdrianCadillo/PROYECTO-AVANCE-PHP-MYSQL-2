@@ -32,7 +32,7 @@ class BaseController extends View
  {
    if(isset($_POST[$input]))
    {
-      return $_POST['input'];
+      return $_POST[$input];
    }
  }
 

@@ -15,11 +15,7 @@ public function index()
 
 public function test()
 {
-   echo OrmImpl::Insert("usuario",[
-     "username"=>"adrian@3400",
-     "email"=>"adriaaanroosales@gmail.com",
-     "pasword"=>"12345678",   
-    ]);
+  
 }
 
 }
