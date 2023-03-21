@@ -11,12 +11,13 @@
                         <h4>Módulos existentes</h4>
                     </span>
 
-                    <span class="float-right"><button class="btn btn-primary" id="new_modulo">nuevo</button></span>
+                    <span class="float-right"><button class="btn btn-primary" id="new_modulo"> <b>Nuevo +</b></button></span>
 
                 </div>
 
                 <div class="card-body">
-                    <table id="tabla-modulos" class="table table-striped dt-responsive nowrap" style="width:100%">
+                    <table id="tabla-modulos" class="table table-bordered table-hover dt-responsive nowrap"
+                        style="width:100%">
                         <thead>
                             <tr>
 
@@ -33,11 +34,12 @@
 
     {{-- -- MODAL PARA REGISTRAR  | EDITAR --- --}}
 
-    <div class="modal" tabindex="-1" id="modal-modulos">
+    <div class="modal" tabindex="-1" id="modal-modulos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Registro Módulos</h5>
+                    <h5 class="modal-title"><span id="title_modal"></span></h5>
                     <button type="button" class="btn btn-danger close" data-bs-dismiss="modal"
                         aria-label="Close">X</button>
                 </div>
@@ -56,6 +58,9 @@
 
                     <button type="button" class="btn btn-success" id="save_modulo">Guardar <i
                             class="fas fa-save"></i></button>
+
+                    <button type="button" class="btn btn-success" id="update_modulo">Guardar cambios <i
+                            class="fas fa-save"></i></button>
                 </div>
             </div>
         </div>
@@ -70,9 +75,11 @@
         var NombreModulo = $('#name_modulo');
 
         var KeyModulo = $('#key_modulo');
- 
+
 
         var Module = new Modulo("{{ URL_BASE }}")
+
+        var IdModulo;
 
         $(document).ready(function() {
 
@@ -80,11 +87,18 @@
 
             $('#new_modulo').click(function() {
 
+                $('#title_modal').text('Registro de módulos')
+                $('#update_modulo').hide()
+                $('#save_modulo').show()
                 $('#modal-modulos').modal('show')
             })
 
             $('.close').click(() => {
                 $('#modal-modulos').modal('hide')
+
+                NombreModulo.val("")
+
+                KeyModulo.val("")
             })
 
             $('#save_modulo').click(function() {
@@ -94,18 +108,48 @@
                 // verificamos la respuesta
 
                 if (respuesta === 'existe') {
-                    alert("existe módulo")
+                    Swal.fire({
+                        title: "Mensaje del sistema",
+                        text: "El módulo que quiere registrar ya existe",
+                        icon: "warning"
+                    })
                 } else {
 
                     if (respuesta == 1) {
-                        alert("registro de módulo correctamente")
-                        
-                        
-
+                        Swal.fire({
+                            title: "Mensaje del sistema",
+                            text: "El módulo se a registrado correctamente",
+                            icon: "success"
+                        })
 
                     } else {
-                        alert("error al crear módulo")
+                        Swal.fire({
+                            title: "Mensaje del sistema",
+                            text: "Acaba de ocurrir un error al registrar nuevo módulo",
+                            icon: "error"
+                        })
                     }
+                }
+            })
+
+            /// modificar los módulos
+
+            $('#update_modulo').click(function() {
+                let respuesta = Module.UpdateModulo("module/update/" + IdModulo, NombreModulo.val(),
+                    KeyModulo.val())
+
+                if (respuesta == 1) {
+                    Swal.fire({
+                        title: "Mensaje del sistema",
+                        text: "Módulo modificado correctamente",
+                        icon: "success"
+                    })
+                } else {
+                    Swal.fire({
+                        title: "Mensaje del sistema",
+                        text: "Error al modificar módulo",
+                        icon: "error"
+                    })
                 }
             })
         });

@@ -31,11 +31,25 @@ private array $Fillable = [
 
  /** Método para modificar */
 
- public  function modify(array $datos){}
+ public  function modify(array $datos){
+    if (count(self::Search_($this->Tabla, $this->Fillable[1], $datos['name_modulo'])) > 0) {
+      return  self::Update($this->Tabla, ["key_modulo" => $datos['key_modulo']]);
+    } else {
+      return self::Update($this->Tabla, $datos);
+    } 
+ }
 
  /** Método para eliminar */
 
- public  function delete($id){}
+ public  function delete($id){
+  
+    if (count(self::Search_("permission", $this->Fillable[0], $id)) > 0) {
+      return 0;
+    } else {
+      return self::destroy($this->Tabla, $this->Fillable[0], $id);
+    }
+  
+ }
 
  /** Método para mostrar datos */
 

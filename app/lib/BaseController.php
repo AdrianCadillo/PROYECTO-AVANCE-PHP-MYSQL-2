@@ -36,4 +36,39 @@ class BaseController extends View
    }
  }
 
+ private function file($Name)
+ {
+  if(isset($_FILES[$Name]))
+   {
+      return $_FILES[$Name];
+   }
+ }
+
+ public function getSizefile($Name)
+ {
+ 
+   return $this->file($Name)['size'];
+ 
+ }
+
+ public function getNamefile($Name)
+ {
+ 
+      return $this->file($Name)['name'];
+  
+ }
+
+ public function getTypefile($Name)
+ {
+      return $this->file($Name)['type'];
+ }
+
+ public function getArchivo($Name)
+ {
+      return $this->file($Name)['tmp_name'];
+ }
+ 
+
+
+
 }

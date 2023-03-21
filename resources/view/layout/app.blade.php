@@ -8,17 +8,22 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
+  
   <link rel="stylesheet" href="{{$this->asset('plugins/fontawesome-free/css/all.min.css')}}">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{$this->asset('dist/css/adminlte.min.css')}}">
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css">
+  <!--- DataTable ---->
+  <link rel="stylesheet" href="{{$this->asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{$this->asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{$this->asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--- CSS PARA SWETTALERT 2 --->
+
+  <link rel="stylesheet" href="{{$this->asset('node_modules/sweetalert2/dist/sweetalert2.css')}}">
+  <link rel="stylesheet" href="{{$this->asset('node_modules/sweetalert2/dist/sweetalert2.min.css')}}">
+  
 </head>
 <!--
 `body` tag options:
@@ -75,14 +80,28 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{$this->asset('dist/js/pages/dashboard3.js')}}"></script>
 
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+{{-- DataTable js ----}}
 
-<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="{{$this->asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{$this->asset('plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{$this->asset('plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{$this->asset('plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{$this->asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- SCRIPT PARA SWEETALERT2--->
+<script src="{{$this->asset('node_modules/sweetalert2/dist/sweetalert2.all.js')}}"></script>
+<script src="{{$this->asset('node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+<script src="{{$this->asset('node_modules/sweetalert2/dist/sweetalert2.js')}}"></script>
+<script src="{{$this->asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 
-<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-
-<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 @yield('script_js')
 </body>
 </html>

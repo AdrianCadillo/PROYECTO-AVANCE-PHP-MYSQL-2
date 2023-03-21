@@ -52,6 +52,38 @@ public function show()
     echo json_encode(['modulos'=>$this->ModelModulo->all()]);
 }
 
+/*===============================
+MODIFICAR MODULO
+================================= */
+
+public function update($datos=null)
+  {
+    if (isset($_POST['update'])) {
+      if ($datos != null) {
+        echo $this->ModelModulo->modify([
+          "id_modulo" => $datos[0],
+          "name_modulo" => $this->post("name_modulo"),
+          "key_modulo" => $this->post("key_modulo")
+        ]);
+      }
+    }
+}
+
+/*===============================
+ELIMINAR MODULO
+================================= */
+
+public function delete($data = null){
+
+  if(isset($_POST['delete']))
+  {
+    if($data!=null)
+    {
+      echo $this->ModelModulo->delete($data[0]);
+    }
+  }
+}
+
 
 
 
