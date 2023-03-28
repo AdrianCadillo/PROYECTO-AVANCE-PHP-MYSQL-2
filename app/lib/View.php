@@ -1,6 +1,7 @@
 <?php
 namespace lib;
 
+use Http\error\Error;
 use Windwalker\Edge\Edge;
 use Windwalker\Edge\Loader\EdgeFileLoader;
 
@@ -8,27 +9,28 @@ class View extends Authenticate
 {
  /*** PROPIEDADES */ 
  
- private string $RaizView = "resources.view.";
+ private static string $RaizView = "resources.view.";
 
  /**** Metodo para las vistas */
 
- public function view(string $vista,$datos=[])
+ public static function view(string $vista,$datos=[])
  {
     $Blade = new Edge(new EdgeFileLoader());
     
     /// reemplazar el . por el /
 
-    $this->RaizView = str_replace(".","/",$this->RaizView.$vista).".blade.php";
+    self::$RaizView = str_replace(".","/",self::$RaizView.$vista).".blade.php";
 
     /// verificar la existencia del archivo
     
-    if(file_exists($this->RaizView))
+    if(file_exists(self::$RaizView))
     {
-      echo $Blade->render($this->RaizView,$datos);  
+      echo $Blade->render(self::$RaizView,$datos);  
     }
     else
     {
-        echo "error 404";
+      $ViewError = str_replace(".","/","resources.view."."error.error404").".blade.php";
+      echo $Blade->render($ViewError);    
     }
 
  }

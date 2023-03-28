@@ -1,6 +1,8 @@
 <?php
 namespace lib;
 
+use Http\error\Error;
+
 class Route 
 {
 
@@ -80,7 +82,7 @@ public static function run()
 
         else:
             /// error 4040
-            echo "Error 404 , página no existe ):";
+            Error::ErrorPage404();
 
         endif;
     else:

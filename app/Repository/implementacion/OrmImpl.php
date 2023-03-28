@@ -145,8 +145,7 @@ public static function destroy(string $Tabla,string $atributo,$valor)
    self::$Query = "DELETE FROM $Tabla WHERE $atributo=:$atributo";
 
    /// validar si existe el id a eliminar
-
-   if(count(self::Search_($Tabla,$atributo,$valor))>0){
+ 
 
    try {
       self::$Pps = self::getConexion()->prepare(self::$Query);
@@ -159,9 +158,51 @@ public static function destroy(string $Tabla,string $atributo,$valor)
       
       echo $th->getMessage();
    }finally{self::closeDataBase();}
-}else
-{
-   echo "<h1 style=color:red;>No existe el id ".$valor." </h1>";
 }
+
+/*================================
+Llamamos a un procedimiento almacenado
+=================================*/
+
+public static function procedure(string $Procedure,array $datos,$evento)
+{
+   $item = 1;
+   self::$Query = "CALL $Procedure(";
+
+   /// recorremos los atributos
+
+   foreach($datos as $value)
+   {
+      self::$Query.= "?,";
+   }
+
+   self::$Query = rtrim(self::$Query,",").")";
+
+   try {
+      self::$Pps = self::getConexion()->prepare(self::$Query);
+
+         /// recorremos los atributos
+
+   foreach($datos as $value)
+   {
+      self::$Pps->bindValue($item,$value);
+
+      $item++;
+   }
+    if(strtoupper($evento)== 'C')
+
+    {
+      self::$Pps->execute();
+
+      return self::$Pps->fetchAll(\PDO::FETCH_OBJ);
+    }
+    else{
+   
+     return self::$Pps->execute();
+    }
+   
+   } catch (\Throwable $th) {
+      echo $th->getMessage();
+   }finally{self::closeDataBase();}
 }
 }

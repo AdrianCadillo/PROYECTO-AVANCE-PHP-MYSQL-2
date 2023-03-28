@@ -1,6 +1,8 @@
 <?php
 namespace lib;
 
+use models\Usuario;
+
 class BaseController extends View
 {
  
@@ -22,11 +24,7 @@ class BaseController extends View
  {
   return str_replace(".","/",RAIZVIEW.$file).".blade.php";
  }
-
- public function load($input)
- {
-   return $_POST[$input] ?? '';
- }
+ 
 
  public function post($input)
  {
@@ -67,7 +65,56 @@ class BaseController extends View
  {
       return $this->file($Name)['tmp_name'];
  }
+
+ public function Redirect(string $redireccion)
+ {
+  header("Location:".URL_BASE.$redireccion);
+ }
+
+ public function load(string $NameSession)
+ {
+  if(isset($_SESSION[$NameSession]))
+  {
+    echo $_SESSION[$NameSession];
+    
+    unset($_SESSION[$NameSession]);
+  }
+ }
+
+ /** Mostrar los roles del usuario */
  
+ public function roles($idUser)
+ {
+  return Usuario::roles($idUser);
+ }
+
+ /// obtener la data del excel
+
+ public function getDataExcel(string $Name):array{
+
+  $File_excel = file($this->getArchivo($Name));
+
+  $Data_Excel = [];$item = 0;
+
+  foreach($File_excel as $data)
+  {
+    if($item>0)
+    {
+      $data = explode(";",$data);
+
+      array_push($Data_Excel,$data);
+    }
+
+    $item++;
+  }
+
+  return $Data_Excel;
+ }
+
+ public function encode_(string $valor)
+ {
+  return mb_convert_encoding($valor,'UTF-8', 'ISO-8859-1');
+ }
 
 
 

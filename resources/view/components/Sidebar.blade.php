@@ -54,6 +54,15 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{URL_BASE}}usuario" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Usuario
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

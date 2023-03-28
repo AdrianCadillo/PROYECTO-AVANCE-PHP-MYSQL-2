@@ -37,4 +37,10 @@ METODO PARA ELIMINAR CUALQUIER REGISTRO DE UNA TABLA
 
 public static function destroy(string $Tabla,string $atributo,$valor);
 
+/*================================
+Llamamos a un procedimiento almacenado
+=================================*/
+
+public static function procedure(string $Procedure,array $datos,$evento);
+
 }

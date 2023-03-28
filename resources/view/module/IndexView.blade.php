@@ -16,6 +16,33 @@
                 </div>
 
                 <div class="card-body">
+                    
+                    <div class="m-2">
+                        <form action="{{URL_BASE}}module/import" method="post" enctype="multipart/form-data" id="form_excel_modulo">
+                           <div class="form-group">
+                            <label for=""><b>Seleccione un archivo excel</b></label>
+                            <div class="row">
+                                <div class="col-xl-10 col-lg-8 col-md-9 col-12">
+                                    <input type="file" class="form-control" name="excel_modulo" id="excel_modulo">
+                                </div>
+    
+                                <div class="col-xl-2 col-lg-4 col-md-3  col-12 m-xl-0 m-lg-0 m-md-0 m-1">
+                                    <button class="btn btn-info form-control" id="import" name="import"><b><i class="fas fa-file-excel"></i> Importar Datos</b></button>
+                                </div>
+                               </div>
+
+                                
+                           </div>
+                        </form>
+
+                        <div class="row m-2">
+                           <div class="col">
+                            <form action="{{URL_BASE}}module/exporttxt" method="post">
+                                <button class="btn btn-danger"><b>Reporte txt <i class="fas fa-file"></i></b></button>
+                            </form>
+                           </div>
+                        </div>
+                    </div>
                     <table id="tabla-modulos" class="table table-bordered table-hover dt-responsive nowrap"
                         style="width:100%">
                         <thead>
@@ -152,6 +179,66 @@
                     })
                 }
             })
+
+            $('#import').click(function(evt){
+
+                evt.preventDefault();
+               
+                if($('input[name=excel_modulo]').val().trim().length==0)
+                {
+                    Swal.fire({
+                                title:"Mensaje del sistema",
+                                html:"<b>Error al importar datos desde excel a la tabla módulo, debe de seleccionar un archivo excel</b>",
+                                icon:"warning"
+                      })
+                }else{
+                    importarDataModulo();
+                }
+ 
+            })
         });
+
+
+        function importarDataModulo()
+        {
+            let FormData_ = new FormData(document.getElementById('form_excel_modulo'))
+                $.ajax({
+                    url:"{{URL_BASE}}module/import",
+                    method:"POST",
+                    data:FormData_,
+                    cache:false,
+                    contentType:false,
+                    processData:false,
+                    success:function(response)
+                    {
+                        if(response == 1)
+                        {
+                            Swal.fire({
+                                title:"Mensaje del sistema",
+                                html:"<b>Datos importados correctamente</b>",
+                                icon:"success"
+                            }).then(function(){
+                                 location.href="{{URL_BASE}}module";
+                            })
+                        }else{
+                            if(response === 'error')
+                            {
+                                Swal.fire({
+                                title:"Mensaje del sistema",
+                                html:"<b>Error en el archivo seleccionado, ya que solo se permite un archivo excel</b>",
+                                icon:"error"
+                            }) 
+                            } else
+                            {
+                                Swal.fire({
+                                title:"Mensaje del sistema",
+                                html:"<b>Error al importar datos desde excel a la tabla módulo</b>",
+                                icon:"error"
+                            }) 
+                            }
+                        }
+                    }
+                })
+        }
     </script>
 @endsection

@@ -28,3 +28,31 @@ function LeerImagen(Input, IdIamgen) {
    }
 }
 } 
+
+/** MOSTRAR LOS ROLES EXISTENTES */
+function showRole()
+{
+    let HTML = "";
+    $.ajax({
+        url:URL_BASE_+"usuario/showRoles",
+        method:"GET",
+        success:function(response)
+        {
+           response = JSON.parse(response);
+
+           response.roles.forEach(role=> {
+             
+            HTML+=`
+             <div class='col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12'>
+             <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                          <input type="checkbox" name='role[]' value="`+role.id_rol+`" class="custom-control-input" id="`+role.id_rol+`">
+                          <label class="custom-control-label" for="`+role.id_rol+`">`+role.name_rol+`</label>
+             </div>
+             </div>
+            `;
+           });
+
+           $('.roles').html(HTML)
+        }
+    })
+}
