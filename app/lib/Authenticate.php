@@ -4,6 +4,18 @@ namespace lib;
 class Authenticate
 {
 
+    private string $SessionUser = "username";
+
+    private string $redirecToSessionIniciada = "usuario";
+
+    private string $redirectToLogin = "login";
+
+    public function Redirect(string $redireccion)
+    {
+     header("Location:".URL_BASE.$redireccion);
+    }
+   
+
     /** validar una variable de session */
 
     public function existSession(string $NameSession)
@@ -31,4 +43,38 @@ class Authenticate
       if(isset($_SESSION[$NameSession]))
        unset($_SESSION[$NameSession]);
     }
+
+    /** Cúando estee authenticado */
+
+    public function auth(){
+
+        if($this->existSession($this->SessionUser)):
+           $this->Redirect($this->redirecToSessionIniciada);
+        endif;
+    }
+
+      /** Cúando no estee authenticado */
+
+    public function NoAuth(){
+
+        if(!$this->existSession($this->SessionUser)):
+           $this->Redirect($this->redirectToLogin);
+        endif;
+    }
+
+    /** cerrar session */
+
+    public function logout_()
+    {
+        if($this->existSession($this->SessionUser)):
+           session_destroy();
+
+           $this->Redirect($this->redirectToLogin);
+           
+        endif;
+    }
+
+
+
+
 } 

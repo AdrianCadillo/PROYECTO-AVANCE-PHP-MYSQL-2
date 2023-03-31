@@ -25,6 +25,9 @@ class UsuarioController extends BaseController
     $this->ModelRole = new Role;
 
     session_start();
+    
+    $this->NoAuth();
+  
   }
 
   public function index()

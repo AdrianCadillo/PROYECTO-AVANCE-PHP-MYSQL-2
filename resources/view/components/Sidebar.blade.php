@@ -14,7 +14,11 @@
           <img src="{{$this->asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">
+            @if ($this->existSession("username"))
+                 {{$this->getSession("username")}}
+            @endif
+          </a>
         </div>
       </div>
 
@@ -57,12 +61,34 @@
 
           <li class="nav-item">
             <a href="{{URL_BASE}}usuario" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Usuario
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{URL_BASE}}role" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Roles
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item" onclick="document.getElementById('Form-logout').submit()">
+            <a href="javascript:;" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                Salir
+              </p>
+            </a>
+
+            <form action="{{URL_BASE}}login/logout" method="post" id="Form-logout" class="d-none"></form>
+          </li>
+
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

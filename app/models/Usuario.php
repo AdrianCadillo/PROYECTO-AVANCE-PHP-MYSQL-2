@@ -109,4 +109,11 @@ class Usuario extends CrudRepository
   {
    self::destroy("usuario_has_role","id_usuario",$iduser);
   }
+
+  /** acceder al sistema */
+
+  public static function SignIn(array $datos)
+  {
+    return self::procedure("proc_login",$datos,"C");
+  }
 }

@@ -66,11 +66,6 @@ class BaseController extends View
       return $this->file($Name)['tmp_name'];
  }
 
- public function Redirect(string $redireccion)
- {
-  header("Location:".URL_BASE.$redireccion);
- }
-
  public function load(string $NameSession)
  {
   if(isset($_SESSION[$NameSession]))
@@ -115,7 +110,27 @@ class BaseController extends View
  {
   return mb_convert_encoding($valor,'UTF-8', 'ISO-8859-1');
  }
+ 
+ public function getTypeMethod()
+ {
+  return  $_SERVER['REQUEST_METHOD'];
+ }
 
+ public function old(string $NameSession)
+ {
+  $Valor = "";
 
+  if($this->existSession($NameSession)):
+    $Valor = $this->getSession($NameSession);
+
+    /// ELIMINAR LA VARIABLE DE SESSION
+
+    $this->deleteSession($NameSession);
+  endif;
+
+  return $Valor;
+ }
+
+ 
 
 }

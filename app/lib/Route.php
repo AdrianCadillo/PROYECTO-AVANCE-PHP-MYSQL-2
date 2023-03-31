@@ -88,7 +88,8 @@ public static function run()
     else:
         $Objeto->index();
      endif;
-
+    else:
+      Error::ErrorPage404();
     endif;
   
 else:

@@ -14,6 +14,11 @@ private CrudRepository $ModelModulo;
 public function __construct()
 {
     $this->ModelModulo = new Modulo;
+
+    session_start();
+   
+    $this->NoAuth();
+    
 }
 
 /*===============================
