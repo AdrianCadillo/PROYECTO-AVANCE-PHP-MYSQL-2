@@ -4,7 +4,7 @@ namespace lib;
 class Authenticate
 {
 
-    private string $SessionUser = "username";
+    private string $SessionUser = "username_";
 
     private string $redirecToSessionIniciada = "usuario";
 

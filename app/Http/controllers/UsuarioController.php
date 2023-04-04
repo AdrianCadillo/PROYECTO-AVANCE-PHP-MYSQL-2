@@ -20,11 +20,11 @@ class UsuarioController extends BaseController
 
   public function __construct()
   {
+    session_start();
+    
     $this->ModelUser = new Usuario;
 
     $this->ModelRole = new Role;
-
-    session_start();
     
     $this->NoAuth();
   

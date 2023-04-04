@@ -17,7 +17,13 @@ class Role extends CrudRepository
   
   public  function create(array $datos){
 
-    return self::Insert($this->Table,$datos);
+    if(count(self::Search_($this->Table,$this->Fillable[1],$datos["name_rol"])) > 0)
+    {
+      return "existe";
+    }
+    else{
+      return self::Insert($this->Table,$datos);
+    }
   }
 
   /** Método para modificar */
@@ -39,6 +45,30 @@ class Role extends CrudRepository
   public  function all(){
 
     return self::get($this->Table);
+  }
+
+  public static function AssigPermiso(array $datos)
+  {
+    self::Insert("rol_has_permission",$datos);
+  }
+
+  /// quitar los permisos
+
+  public static function deletePermissions($id_rol)
+  {
+    /// eliminar de la tabla rol_haspermisos
+
+    self::destroy("rol_has_permission","id_rol",$id_rol);
+
+    /// eliminar de la tabla usuario_has_role
+
+
+   self::destroy("usuario_has_role","id_rol",$id_rol);
+
+   /// recien eliminamos la tabla de roles
+
+   return self::destroy("rol","id_rol",$id_rol);
+
   }
 
 }

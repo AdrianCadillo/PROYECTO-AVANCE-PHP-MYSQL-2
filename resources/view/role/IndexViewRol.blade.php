@@ -100,7 +100,7 @@
                      <div class="form-group">
                          <label for="modulo">Seleccione Módulo (*)</label>
                           <select name="modulo" id="modulo" class="form-control">
- 
+                           
                           </select>
                      </div>
                  </div>
@@ -122,10 +122,39 @@
     <script>
 
         var URL_BASE_ = "{{URL_BASE}}"
+
+        var NamePermio = $('#name_permiso');
+
+        var Descripcion = $('#descripcion');
+
+        var Modulo = $('#modulo');
+
+        var NombreRol = $('#rolename')
+
         $(document).ready(function(){
+
+            focusInputModal('modal-permiso-create','name_permiso');
+
+            focusInputModal('modal-role','rolename');
              
             //// mostrar todos los roles en el Datatable
             showDataTable()
+
+            /// visualizar los permisos
+
+            showPermisos()
+
+            ///mostrar los modulos
+
+            modules() 
+
+            $('#save_permiso').click(function () {
+                savePermission(NamePermio,Descripcion,Modulo)
+            })
+
+            $('#save_role').click(function(){
+                save_Role(NombreRol)
+            })
         })
     </script>
 @endsection

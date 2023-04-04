@@ -55,3 +55,33 @@ function showData(url_)
 
     return Data;
 }
+
+/// crear,eliminar,update
+
+function crud(url_,datos={})
+{
+    let Data = null;
+
+    $.ajax({
+        url:url_,
+        method:"POST",
+        data:datos,
+        async:false,
+        success:function (response) 
+        {
+
+         Data = response;
+        }
+    })
+
+    return Data;
+}
+
+
+function focusInputModal(modal,input){
+
+    $("#"+modal).on('shown.bs.modal', function () {
+        $("#"+input).focus();
+    });
+}
+

@@ -49,7 +49,7 @@
 
             @if (isset($Roles))
                 @foreach ($Roles as $role)
-                    <option value="{{$role->id_rol}}" @if($this->old("rol") == $role->id_rol) {{"selected"}}  @endif>{{$role->name_rol}}</option>
+                    <option value="{{$role->id_rol}}" {{ $this->old('rol') == $role->id_rol? "selected" : "" }}>{{$role->name_rol}}</option>
                 @endforeach
             @endif
           </select>

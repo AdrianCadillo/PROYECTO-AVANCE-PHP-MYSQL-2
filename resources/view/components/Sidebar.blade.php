@@ -15,8 +15,8 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-            @if ($this->existSession("username"))
-                 {{$this->getSession("username")}}
+            @if ($this->existSession("username_"))
+                 {{$this->getSession("username_")}}
             @endif
           </a>
         </div>

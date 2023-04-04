@@ -33,11 +33,19 @@ class RoleController extends BaseController
 
   public function create()
   {
-    $datos = [
-      "name_rol"=>"Contador"
-    ];
+    
+  }
 
-    echo $this->ModelRole->create($datos); 
+  public function store()
+  {
+    if($this->getTypeMethod() === 'POST')
+    {
+      $datos = [
+        "name_rol"=>$this->post("name_rol")
+      ];
+  
+      echo $this->ModelRole->create($datos);
+    } 
   }
 
   /** Método para mostrar los roles y sus permisos*/
@@ -76,6 +84,38 @@ class RoleController extends BaseController
     echo $Roles;
   }
 
+  /// asignamos permisos
+
+  public function asignPermisos()
+
+  {
+    if($this->getTypeMethod() === 'POST')
+    {
+      $Role = $this->ModelRole->Search_("rol","name_rol",$this->post("rol"));
+
+      if(count($Role)>0)
+      {
+        $Id_Rol = $Role[0]->id_rol;
+
+        $datos = [
+          "id_permiso"=>$this->post("permiso"),
+          "id_rol"=>$Id_Rol
+        ];
+    
+        Role::AssigPermiso($datos);
+      }
+    } 
+  }
+
+  /// quitar permisos a los roles
+
+  public function deletePermisos($data=null)
+  {
+    if($this->getTypeMethod() === 'POST')
+    {
+     echo Role::deletePermissions($data[0]);
+    }
+  }
    
 
    
