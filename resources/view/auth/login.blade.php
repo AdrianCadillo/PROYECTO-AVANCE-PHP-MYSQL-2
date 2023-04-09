@@ -44,8 +44,8 @@
 
         <div class="form-group">
           <label for="rol" class="form-label"><b>Seleccione perfíl</b></label>
-          <select name="rol" id="rol" class="form-control">
-            <option value="" selected disabled> --- Perfíl --- </option>
+          <select name="rol" id="rol" class="form-control"> 
+            <option  selected disabled> --- Perfíl --- </option>
 
             @if (isset($Roles))
                 @foreach ($Roles as $role)

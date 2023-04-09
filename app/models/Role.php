@@ -30,7 +30,16 @@ class Role extends CrudRepository
 
   public function modify(array $datos){
 
-    return self::Update($this->Table,$datos);
+    if(count(self::Search_($this->Table,$this->Fillable[1],$datos["name_rol"])) > 0)
+    {
+
+    return "existe";
+
+    }
+    else
+    {
+      return self::Update($this->Table,$datos);
+    }
   }
 
   /** Método para eliminar */
@@ -69,6 +78,22 @@ class Role extends CrudRepository
 
    return self::destroy("rol","id_rol",$id_rol);
 
+  }
+
+  /// autoriza permisos(llamamos al procedimiento almacenado)
+
+  public static function Autorize(array $datos):bool
+  {
+    $Data = self::procedure("proc_autoriza",$datos,"C");
+    
+    return count($Data) > 0 ? true:false;
+  }
+
+  /// permisos autorizados y no autorizados
+
+  public static function Rol_Not_In_Permisos(array $datos)
+  {
+    return self::procedure("proc_permisos_rol",$datos,"c");
   }
 
 }

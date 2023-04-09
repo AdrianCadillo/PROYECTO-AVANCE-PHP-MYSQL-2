@@ -37,7 +37,7 @@ function closeModal(IdModal)
 
 /// mostrar los datos
 
-function showData(url_)
+function showData(url_,data_={})
 {
     let Data = null;
 
@@ -45,6 +45,7 @@ function showData(url_)
         url:url_,
         method:"GET",
         async:false,
+        data:data_,
         success:function (response) 
         {
          response = JSON.parse(response)
@@ -55,6 +56,8 @@ function showData(url_)
 
     return Data;
 }
+
+ 
 
 /// crear,eliminar,update
 

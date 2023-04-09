@@ -91,7 +91,9 @@ class RoleController extends BaseController
   {
     if($this->getTypeMethod() === 'POST')
     {
-      $Role = $this->ModelRole->Search_("rol","name_rol",$this->post("rol"));
+    $Role = $this->ModelRole->Search_("rol","name_rol",$this->post("rol"));
+     if($this->post("accion") === 'insert')
+     {
 
       if(count($Role)>0)
       {
@@ -104,7 +106,41 @@ class RoleController extends BaseController
     
         Role::AssigPermiso($datos);
       }
+     }
+     else{
+      if(count($Role)>0)
+      {
+        $Id_Rol = $Role[0]->id_rol;
+
+        $datos = [
+          "id_permiso"=>$this->post("permiso"),
+          "id_rol"=>$Id_Rol
+        ];
+
+    
+        echo Role::AssigPermiso($datos);
+      }
+     }
     } 
+  }
+
+  public function deletePermission(){
+     /// quitar los permisos a los roles
+
+     Role::destroy("rol_has_permission","id_rol",$this->post("id_rol"));
+  }
+
+  public function update($data = null)
+  {
+
+    if($data != null)
+    {
+       echo $this->ModelRole->modify([
+        "id_rol"=>$data[0],
+        "name_rol"=>$this->post("name_rol")
+       ]);
+    }
+
   }
 
   /// quitar permisos a los roles
@@ -115,6 +151,22 @@ class RoleController extends BaseController
     {
      echo Role::deletePermissions($data[0]);
     }
+  }
+
+  /// muestre los permisos asignados de un rol
+
+  public function PermisosRol(){
+
+    echo  json_encode(["permisos"=>Role::Rol_Not_In_Permisos([$this->GET("id"),1])]);
+  }
+
+   /// muestre los permisos no asignados de un rol
+   /*
+   */
+
+   public function PermisosNotRol(){
+
+    echo  json_encode(["not_permisos"=>Role::Rol_Not_In_Permisos([$this->GET("id"),2])]);
   }
    
 

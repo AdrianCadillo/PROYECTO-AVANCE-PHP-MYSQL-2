@@ -117,16 +117,21 @@
 
                                         <td>
                                             <div class="row">
+                                                @if($this->autorizado("Usuario.editar"))
                                                 <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-12 m-1">
                                                     <a href="{{URL_BASE}}usuario/editar/{{$user->id_usuario}}" class="btn btn-outline-warning btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </div>
+                                                @endif
+                                               
+                                                @if ($this->autorizado("Usuario.delete"))
                                                 <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-12 m-1">
                                                     <button class="btn btn-outline-danger btn-sm" onclick="ConfirmDelete(`{{$user->id_usuario}}`,`{{$user->username}}`)">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

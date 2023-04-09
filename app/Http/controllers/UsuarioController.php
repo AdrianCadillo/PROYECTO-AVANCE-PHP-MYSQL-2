@@ -1,5 +1,6 @@
 <?php
 
+use Http\error\Error;
 use lib\BaseController;
 use models\Role;
 use models\Usuario;
@@ -18,6 +19,8 @@ class UsuarioController extends BaseController
 
   private array $Errors = [];
 
+  private array $Permissions = ["Usuario.index","Usuario.create","Usuario.editar","Usuario.delete"];
+
   public function __construct()
   {
     session_start();
@@ -32,10 +35,15 @@ class UsuarioController extends BaseController
 
   public function index()
   {
-
+    if($this->autorizado($this->Permissions[0])):
     $Usuarios = $this->ModelUser->all();
 
     $this->view("usuario.IndexView", compact("Usuarios"));
+
+    else:
+     Error::PageNoAutorizado();
+    endif;
+
   }
 
   /*===============================
@@ -44,7 +52,12 @@ PARA LA VISTA DE CREAR NUEVO USUARIO
 
   public function create()
   {
+    if($this->autorizado($this->Permissions[1])):
+
     $this->view("usuario.Create");
+    else:
+      Error::PageNoAutorizado();
+    endif;
   }
   /*===============================
 PARA CREAR UN USUARIO NUEVO EN LA 
@@ -183,8 +196,12 @@ USUARIOS
 
   public function showRoles()
   {
-
+    if($this->autorizado($this->Permissions[0])):
     echo json_encode(['roles' => $this->ModelRole->all()]);
+    else:
+      Error::PageNoAutorizado();
+    endif;
+
   }
 
   /** resetear los campos */
@@ -202,6 +219,7 @@ USUARIOS
   {
     if ($datos != null) {
       if (!empty($datos[0])) {
+       if($this->autorizado($this->Permissions[2])):
         $Roles = $this->ModelRole->all();
 
         /// mostrar los roles que tiene asignado el usuario a editar
@@ -215,6 +233,9 @@ USUARIOS
         $Usuario = Usuario::getBydId($datos[0]);
 
         $this->view("usuario.EditarView", compact("Usuario", "Roles", "Roles_Usuario", "Roles_No_Asignados_User"));
+       else:
+        Error::PageNoAutorizado(); 
+      endif;
       } else {
         $this->Redirect("usuario");
       }
@@ -250,6 +271,7 @@ USUARIOS
       $this->RutaFoto .= $NameImagen;
 
       move_uploaded_file($this->getArchivo("foto"), $this->RutaFoto);
+    
     } else {
 
       $Datos_Usuario = [
@@ -347,14 +369,19 @@ USUARIOS
 
   public function delete($dato = null)
   {
-    if (isset($_POST['delete'])) {
-      /// elimino todos los roles del usuario
-
-      Usuario::deleteRoles($dato[0]);
-
-      /// elimino al usuario
-
-      echo $this->ModelUser->delete($dato[0]);
+    if($this->autorizado("Usuario.delete"))
+    {
+      if (isset($_POST['delete'])) {
+        /// elimino todos los roles del usuario
+  
+        Usuario::deleteRoles($dato[0]);
+  
+        /// elimino al usuario
+  
+        echo $this->ModelUser->delete($dato[0]);
+      }
+    }else{
+      Error::PageNoAutorizado();
     }
   }
 }

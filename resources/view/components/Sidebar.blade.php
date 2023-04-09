@@ -10,8 +10,15 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{$this->asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        <div class="image text-center">
+          @if ($this->getSession("foto") != null)
+              @php $Foto ='fotos/'.$this->getSession("foto"); @endphp
+
+              @else:
+               @php $Foto ='dist/img/user2-160x160.jpg'; @endphp
+          @endif
+      
+          <img src="{{$this->asset($Foto)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
@@ -50,6 +57,7 @@
             </a>
           </li>
 
+          @if($this->autorizado("Modulo.index"))
           <li class="nav-item">
             <a href="{{URL_BASE}}module" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -58,6 +66,9 @@
               </p>
             </a>
           </li>
+          @endif
+
+          @if($this->autorizado("Usuario.index"))
 
           <li class="nav-item">
             <a href="{{URL_BASE}}usuario" class="nav-link">
@@ -67,7 +78,9 @@
               </p>
             </a>
           </li>
+          @endif
 
+          @if($this->autorizado("Rol.index"))
           <li class="nav-item">
             <a href="{{URL_BASE}}role" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -76,6 +89,18 @@
               </p>
             </a>
           </li>
+          @endif
+
+          @if($this->autorizado("Config.copia") || $this->autorizado("Config.restaurar"))
+          <li class="nav-item">
+            <a href="{{URL_BASE}}config" class="nav-link">
+              <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
+              <p>
+                configuración
+              </p>
+            </a>
+          </li>
+          @endif
 
           <li class="nav-item" onclick="document.getElementById('Form-logout').submit()">
             <a href="javascript:;" class="nav-link">

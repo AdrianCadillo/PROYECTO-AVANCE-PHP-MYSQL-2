@@ -1,6 +1,7 @@
 <?php
 namespace lib;
 
+use models\Role;
 use models\Usuario;
 
 class BaseController extends View
@@ -31,6 +32,14 @@ class BaseController extends View
    if(isset($_POST[$input]))
    {
       return $_POST[$input];
+   }
+ }
+
+ public function get($input)
+ {
+   if(isset($_GET[$input]))
+   {
+      return $_GET[$input];
    }
  }
 
@@ -130,6 +139,14 @@ class BaseController extends View
 
   return $Valor;
  }
+
+
+ /// autorizar permisos del sistema al usuario
+
+ public function autorizado($permiso):bool{
+
+  return Role::Autorize([$this->getSession("id_perfil"),$permiso]);
+ } 
 
  
 

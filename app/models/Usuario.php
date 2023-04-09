@@ -38,7 +38,7 @@ class Usuario extends CrudRepository
 
     if (count(self::Search_($this->Table, $this->Fillable[0], $datos['username'])) > 0) :
 
-     if(!empty(array_keys($datos)[2]))
+     if(!empty(array_keys($datos)[3]))
      {
       return self::Update($this->Table,["id_usuario"=>$datos["id_usuario"],"email"=>$datos["email"],"foto"=>$datos["foto"]]);
      }

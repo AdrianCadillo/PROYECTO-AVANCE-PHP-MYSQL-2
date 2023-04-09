@@ -47,7 +47,13 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <img src="{{ $this->asset('img/anonimo.png') }}" class="img-rounded img-fluid" id="img"
+                            @if ($Usuario[0]->foto != null)
+                                @php $Foto_ = 'fotos/'.$Usuario[0]->foto @endphp
+
+                                @else:
+                                @php $Foto_ = 'img/anonimo.png' @endphp
+                            @endif
+                            <img src="{{ $this->asset($Foto_) }}" class="img-rounded img-fluid" id="img"
                                 alt="" width="130px" height="130px">
                         </div>
                         <div class="row justify-content-center mt-2">

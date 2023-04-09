@@ -8,7 +8,10 @@
         <div class="card-header">
             <h4 class="float-left">Crear roles</h4>
             <span class="float-right">
-                <button class="btn btn-primary btn-sm" onclick="createRole()"><b>Nuevo <i class="fas fa-plus"></i></b></button>
+
+               @if($this->autorizado("Rol.create"))
+               <button class="btn btn-primary btn-sm" onclick="createRole()"><b>Nuevo <i class="fas fa-plus"></i></b></button>
+               @endif
             </span>
         </div>
 
@@ -63,6 +66,40 @@
             </div>
         </div>
     </div>
+</div>
+
+{{--- Modal para editar roles y asignarle permisos---}}
+
+<div class="modal fade" id="modal-role-editar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Editar roles</h4>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="mb-3 row">
+                <label for="rolename_editar" class="col-sm-2 col-form-label"><b>Nombre rol (*)</b></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="rolename_editar">
+                </div>
+            </div>
+
+            <div class="row permisos_editar">
+                 
+            </div>
+        </div>
+
+        <div class="modal-footer form-inline">
+
+        <button class="btn btn-success btn-sm form-control" id="update_role"><i class="fas fa-save"></i> Guardar cambios</button>
+        </div>
+    </div>
+</div>
 </div>
 
  {{---- modal para crear nuevos permisos---}}
@@ -131,6 +168,16 @@
 
         var NombreRol = $('#rolename')
 
+        var NameRol_editar = $('#rolename_editar')
+
+        var Editar = "{{$this->autorizado('Rol.editar')}}";
+
+        var Eliminar = "{{$this->autorizado('Rol.delete')}}";
+        
+
+        var PERFIL = "{{$this->existSession('rol_perfil')?$this->getSession('rol_perfil'):''}}";
+
+        var IdRol ;
         $(document).ready(function(){
 
             focusInputModal('modal-permiso-create','name_permiso');
@@ -144,6 +191,8 @@
 
             showPermisos()
 
+           // 
+
             ///mostrar los modulos
 
             modules() 
@@ -151,10 +200,16 @@
             $('#save_permiso').click(function () {
                 savePermission(NamePermio,Descripcion,Modulo)
             })
-
+ 
             $('#save_role').click(function(){
                 save_Role(NombreRol)
             })
+
+            $('#update_role').click(function(){
+                update_Role(NameRol_editar,IdRol)
+            })
+
+             
         })
     </script>
 @endsection

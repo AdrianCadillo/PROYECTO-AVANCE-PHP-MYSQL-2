@@ -40,4 +40,4 @@
     </div>
     <!-- /.error-page -->
   </section>
-@endsection;
+@endsection
