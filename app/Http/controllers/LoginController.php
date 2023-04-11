@@ -113,7 +113,7 @@ private function Attemp(array $datos)
               $Usuario[0]->id_rol
             );
 
-            $this->Redirect("usuario");
+            $this->Redirect("dashboard");
 
         else:
             $this->assignValueSession("mensaje_login","error en la contraseña");

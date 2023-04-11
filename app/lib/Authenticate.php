@@ -6,7 +6,7 @@ class Authenticate
 
     private string $SessionUser = "username_";
 
-    private string $redirecToSessionIniciada = "usuario";
+    private string $redirecToSessionIniciada = "dashboard";
 
     private string $redirectToLogin = "login";
 

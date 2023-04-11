@@ -17,7 +17,6 @@ use lib\View;
 
  public static function PageNoAutorizado()
  {
-  session_start();
    View::view("error.pageNoAutorizado");
  }
  }

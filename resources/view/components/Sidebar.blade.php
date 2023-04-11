@@ -1,7 +1,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{URL_BASE}}dashboard" class="brand-link">
       <img src="{{$this->asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -93,7 +93,7 @@
 
           @if($this->autorizado("Config.copia") || $this->autorizado("Config.restaurar"))
           <li class="nav-item">
-            <a href="{{URL_BASE}}config" class="nav-link">
+            <a href="{{URL_BASE}}database" class="nav-link">
               <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
               <p>
                 configuración

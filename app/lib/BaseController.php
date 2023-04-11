@@ -148,6 +148,23 @@ class BaseController extends View
   return Role::Autorize([$this->getSession("id_perfil"),$permiso]);
  } 
 
+ /// obtener foto
+
+ public function getFoto():string
+ {
+  $Foto = "dist/img/user4-128x128.jpg";
+
+  if($this->existSession("foto"))
+  {
+    if($this->getSession("foto") !== null)
+    {
+      $Foto ="fotos/".$this->getSession("foto");
+    }
+  }
+
+  return $Foto;
+ }
+
  
 
 }

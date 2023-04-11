@@ -21,7 +21,7 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center">
          
           <!-- /.col-md-6 -->
            @yield('contenido')
