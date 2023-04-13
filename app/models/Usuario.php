@@ -116,4 +116,11 @@ class Usuario extends CrudRepository
   {
     return self::procedure("proc_login",$datos,"C");
   }
+
+  /** Cambiar contraseña */
+
+  public static function updateUserPassword(array $datos)
+  {
+    return self::Update("usuario",$datos);
+  }
 }

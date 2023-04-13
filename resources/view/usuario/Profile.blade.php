@@ -43,7 +43,7 @@
      <div class="modal fade" id="modal-pasword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog" >
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header badge badge-info">
                     <h4>Cambiar contraseña</h4>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">X</span>
@@ -53,29 +53,24 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="validationServer01" class="form-label">Password actual</label>
-                        <input type="text" class="form-control is-valid" id="validationServer01" value="Mark" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
+                        <input type="text" class="form-control is-invalid" id="password_actual" placeholder="Password actual">
+                       
                       </div>
                       <div class="form-group">
                         <label for="validationServer02" class="form-label">Nuevo Password</label>
-                        <input type="text" class="form-control is-valid" id="validationServer02" value="Otto" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
+                        <input type="text" class="form-control is-invalid" id="password_nuevo"  placeholder="Nuevo password..." >
+                         
                       </div>
                       <div class="form-group">
                         <label for="validationServer03" class="form-label">Confirmar Password</label>
-                        <input type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
-                        <div id="validationServer03Feedback" class="invalid-feedback">
-                          Please provide a valid city.
-                        </div>
+                        <input type="text" class="form-control is-invalid" id="password_confirm" aria-describedby="validationServer03Feedback" 
+                        placeholder="Confirmar password...">
+                         
                       </div>
                 </div>
 
                 <div class="modal-footer justify-content-center">
-                    <button class="btn btn-success"> <b>Guardar cambios <i class="fas fa-save"></i></b></button>
+                    <button class="btn btn-success" id="save_pasword"> <b>Guardar cambios <i class="fas fa-save"></i></b></button>
                 </div>
             </div>
         </div>
@@ -83,14 +78,187 @@
 @endsection
 
 @section('script_js')
+
+<script src="{{URL_BASE}}public/js/control.js"></script>
     <script>
+
+      var PasswordActual = $('#password_actual');
+
+      var PasswordNuevo = $('#password_nuevo');
+
+      var PasswordConfirm = $('#password_confirm');
+
+      var BotonPassword = $('#save_pasword');
+
+
         $(document).ready(function(){
+
+          focusInputModal("modal-pasword","password_actual");
+
+          PasswordNuevo.prop("disabled",true);
+
+          PasswordConfirm.prop("disabled",true)
+
+          BotonPassword.prop("disabled",true)
+
             $('#cambio_pasword').click(function(evt){
                 evt.preventDefault();
                 
                 $('#modal-pasword').modal("show");
             })
+
+            BotonPassword.click(function(){
+
+              updatePassword(PasswordNuevo.val())
+            })
         })
+
+
+
+        PasswordActual.keyup(function(){
+           
+          let response = showData("{{URL_BASE}}usuario/getPasswordActual",{pasword:$(this).val()});
+
+          if(response.resultado)
+          {
+             $(this).removeClass("is-invalid")
+
+             $(this).addClass("is-valid")
+
+             PasswordNuevo.prop("disabled",false)
+
+             PasswordNuevo.focus()
+
+          }else{
+            
+            $(this).removeClass("is-valid")
+
+            $(this).addClass("is-invalid")
+
+            BotonPassword.prop("disabled",true);
+
+            PasswordConfirm.prop("disabled",true);
+
+            PasswordNuevo.prop("disabled",true);
+
+            PasswordConfirm.removeClass("is-valid");
+
+            PasswordNuevo.removeClass("is-valid");
+
+            PasswordConfirm.addClass("is-invalid")
+
+            PasswordNuevo.addClass("is-invalid")
+
+            PasswordConfirm.val("");
+
+            PasswordNuevo.val("")
+            
+          }
+
+        })
+
+        PasswordNuevo.keyup(function(){
+          
+          if($(this).val().trim().length >=8)
+          {
+            $(this).removeClass("is-invalid")
+
+            $(this).addClass("is-valid")
+
+            PasswordConfirm.prop("disabled",false)
+
+          }
+          else
+          {
+            $(this).removeClass("is-valid")
+
+            $(this).addClass("is-invalid")
+
+            PasswordConfirm.prop("disabled",true)
+
+          } 
+        });
+
+        PasswordNuevo.keypress(function(evento){
+           
+          if(evento.which == 13)
+          {
+             if($(this).val().trim().length >= 8)
+             {
+              PasswordConfirm.focus();
+             }
+
+          }
+
+        })
+
+        PasswordConfirm.keyup(function(){
+
+          if($(this).val().trim() === PasswordNuevo.val().trim())
+          {
+            $(this).removeClass("is-invalid");  $(this).addClass("is-valid");
+
+            BotonPassword.prop("disabled",false);
+          }else{
+            $(this).removeClass("is-valid");  $(this).addClass("is-invalid");
+
+            BotonPassword.prop("disabled",true);
+          }
+        })
+
+        /** metodo para actualizar contraseña del usuario logueado al sistema*/ 
+
+        function updatePassword(pasword_)
+        {
+          let response = crud("{{URL_BASE}}usuario/update_password",{pasword:pasword_});
+
+           if(response == 1)
+           {
+            Swal.fire({
+              title:"Mensaje del sistema",
+              text:"Tu password a sido modificado correctamente (:",
+              icon:"success"
+            }).then(function(){
+              reset()
+
+              $('#modal-pasword').modal("hide")
+            })
+           }else{
+            Swal.fire({
+              title:"Mensaje del sistema",
+              text:"Error al modificar password ):",
+              icon:"error"
+            })
+           } 
+        }
+
+        function reset()
+        {
+
+            BotonPassword.prop("disabled",true);
+
+            PasswordConfirm.prop("disabled",true);
+
+            PasswordNuevo.prop("disabled",true);
+
+            PasswordConfirm.removeClass("is-valid");
+
+            PasswordNuevo.removeClass("is-valid");
+
+            PasswordConfirm.addClass("is-invalid")
+
+            PasswordNuevo.addClass("is-invalid")
+
+            PasswordActual.removeClass("is-valid")
+
+            PasswordActual.addClass("is-invalid")
+
+            PasswordActual.val("")
+
+            PasswordConfirm.val("");
+
+            PasswordNuevo.val("")
+        }
     </script>
 @endsection
 

@@ -110,7 +110,8 @@ private function Attemp(array $datos)
               $Usuario[0]->email,
               $Usuario[0]->name_rol,
               $Usuario[0]->foto === null ? '':$Usuario[0]->foto,
-              $Usuario[0]->id_rol
+              $Usuario[0]->id_rol,
+              $Usuario[0]->id_usuario
             );
 
             $this->Redirect("dashboard");
@@ -139,7 +140,7 @@ private function Attemp(array $datos)
 
 /** Profile del usuario */
 
-private function profile(string $username,string $email,string $rol,string $foto,$id_rol)
+private function profile(string $username,string $email,string $rol,string $foto,$id_rol,$idusuario)
 {
   $this->assignValueSession("username_",$username);
 
@@ -150,6 +151,8 @@ private function profile(string $username,string $email,string $rol,string $foto
   $this->assignValueSession("foto",$foto);
 
   $this->assignValueSession("id_perfil",$id_rol);
+
+  $this->assignValueSession("idusu",$idusuario);
 }
 
 

@@ -384,4 +384,37 @@ USUARIOS
       Error::PageNoAutorizado();
     }
   }
+
+  /** método para el password actual */
+
+  public function getPasswordActual()
+  {
+    if($this->existSession("idusu"))
+    {
+      $Usuario = Usuario::getBydId($this->getSession("idusu"));
+
+      $InputPassword = $this->get("pasword");
+
+      if(password_verify($InputPassword,$Usuario[0]->pasword))
+      {
+        echo json_encode(["resultado"=>true]);
+      }else{
+        echo json_encode(["resultado"=>false]);
+      }
+       
+    }
+  }
+
+  /** modificar contraseña */
+
+  public function update_password()
+  {
+    if($this->getTypeMethod() === 'POST')
+    {
+      echo Usuario::updateUserPassword([
+        "id_usuario"=>$this->getSession("idusu"),
+        "pasword"=>password_hash($this->post("pasword"),PASSWORD_BCRYPT)
+      ]);
+    }
+  }
 }
