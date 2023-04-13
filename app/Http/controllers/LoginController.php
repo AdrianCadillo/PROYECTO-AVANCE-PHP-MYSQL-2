@@ -143,7 +143,7 @@ private function profile(string $username,string $email,string $rol,string $foto
 {
   $this->assignValueSession("username_",$username);
 
-  $this->assignValueSession("email",$email);
+  $this->assignValueSession("email_",$email);
 
   $this->assignValueSession("rol_perfil",$rol);
 

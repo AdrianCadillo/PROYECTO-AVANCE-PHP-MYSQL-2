@@ -24,7 +24,7 @@
                  <div class="form-group">
                   <label for="email_" class="form-label">Email</label>
                   <input type="email" name="email_" id="email_" class="form-control"
-                  value="{{$this->existSession("email") ? $this->getSession("email"):''}}">
+                  value="{{$this->existSession("email_") ? $this->getSession("email_"):''}}">
                  </div>
                 
               </div>
@@ -32,7 +32,7 @@
               <div class="card-footer text-center">
                 <button class="btn btn-success" name="save_perfil"> <i class="fas fa-save"></i> Guadar cambios</button>
 
-                <button class="btn btn-primary" id="cambio_pasword"> <i class="fas fa-save"></i> Cambiar contraseña</button>
+                <button class="btn btn-primary" id="cambio_pasword"> <i class="fas fa-key"></i> Cambiar contraseña</button>
             </div>
               </div>
            </form>
